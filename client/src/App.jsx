@@ -1,33 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import Signin from './pages/signin';
+import SignUp from './pages/SignUp';
+import Home from './pages/Home';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import ForgotPassword from './pages/ForgotPassword';
+import { createContext, useContext, useState } from 'react';
+import ChangePassword from './pages/ChangePassword';
+
+export const UserContext = createContext();
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+// TODO remove, this demo shouldn't need to reset the theme.
+
+const redTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#ff0000', // Red color
+    },
+  },
+});
+const [user, setUser] = useState('');
+
+const handleChangeUser = (user)=>{
+  setUser(user);
+}
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <UserContext.Provider value={{user, handleChangeUser}}>
+      <ThemeProvider theme={redTheme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <HashRouter>
+            <Routes>
+              <Route path='/' element={<Signin />} />
+              <Route path='/register' element={<SignUp />} />
+              <Route path='/home' element={<Home />} />
+              <Route path='/reset' element={<ForgotPassword />} />
+              <Route path='/passwordReset' element={<ChangePassword />} />
+            </Routes>
+          </HashRouter>
+          {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
+        </Container>
+      </ThemeProvider>
+      </UserContext.Provider>
     </>
   )
 }

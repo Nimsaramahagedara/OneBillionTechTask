@@ -10,15 +10,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const sendEmail = async (email, subject, payload, template) => {
-    console.log(__filename);
-    console.log(__dirname);
+    //console.log(__filename);
+    //console.log(__dirname);
     try {
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: process.env.EMAIL_USERNAME,
-                pass: process.env.EMAIL_PASSWORD, // naturally, replace both with your real credentials or an application-specific password
+                pass: process.env.EMAIL_PASSWORD, 
             },
         });
 

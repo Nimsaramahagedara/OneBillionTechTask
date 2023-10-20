@@ -75,7 +75,7 @@ export const loginUser = async (req, res) => {
 
         const token = createToken(isExist._id);
         //SEND THE TOKEN
-        res.status(200).json({ message: 'Login Success', token })
+        res.status(200).json({ message: 'Login Success', token, user:isExist })
     } catch (error) {
         //console.log(error);
         res.status(401).json({message:error.message});
