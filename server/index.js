@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 import { dbConnect } from './config/dbConfig.js';
 import userRouter from './routes/UserRoutes.js';
+import TodoRouter from './routes/TodoRoutes.js';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 
 //Routes
 app.use('/', userRouter);
+app.use('/todo', TodoRouter);
 
 //Create Server
 dbConnect().then(()=>{

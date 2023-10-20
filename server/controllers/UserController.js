@@ -13,6 +13,10 @@ export const createToken = (id) => {
     })
     return token
 }
+export const getId = (token) => {
+    const id = jwt.verify(token, process.env.SECRET_KEY)
+    return id.id
+}
 
 //REGISTER USER
 export const registerUser = async (req, res) => {
@@ -77,6 +81,29 @@ export const loginUser = async (req, res) => {
         res.status(401).json({message:error.message});
     }
 }
+
+//GET USER
+export const getUser = async (req, res) => {
+    const { token } = req.body;
+    
+    
+    try {
+        const _id = getId(token);
+        const isExist = await UserModel.findById(_id);
+
+        //CHECH IS ACCOUNT IS EXIST OR NOT
+        if (!isExist) {
+            throw Error('Account Not Exist');
+        }
+
+        //SEND THE TOKEN
+        res.status(200).json(isExist);
+    } catch (error) {
+        //console.log(error);
+        res.status(401).json({message:error.message});
+    }
+}
+
 
 //RESET PASSWORD REQUEST
 export const passwordResetRequest = async (req,res)=>{
