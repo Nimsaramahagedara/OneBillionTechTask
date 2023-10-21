@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import ForgotPassword from './pages/ForgotPassword';
 import { createContext, useContext, useState } from 'react';
 import ChangePassword from './pages/ChangePassword';
+import Spinner from './components/Spinner';
 
 export const UserContext = createContext();
 
@@ -34,8 +35,9 @@ const handleChangeUser = (user)=>{
     <>
     <UserContext.Provider value={{user, handleChangeUser}}>
       <ThemeProvider theme={redTheme}>
-        <Container component="main" maxWidth="xs">
+        {/* <Container component="main" maxWidth="xs"> */}
           <CssBaseline />
+          {/* <Spinner/> */}
           <HashRouter>
             <Routes>
               <Route path='/' element={<Signin />} />
@@ -46,7 +48,7 @@ const handleChangeUser = (user)=>{
             </Routes>
           </HashRouter>
           {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
-        </Container>
+        {/* </Container> */}
       </ThemeProvider>
       </UserContext.Provider>
     </>

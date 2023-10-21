@@ -12,7 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import FormComponent from '../components/FormComponent';
 import { UserContext } from '../App';
 
-export default function SignIn() {
+
+
+
+const SignIn = ()=> {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const { user, handleChangeUser } = useContext(UserContext);
@@ -92,3 +95,5 @@ export default function SignIn() {
         </FormComponent>
     );
 }
+
+export default SignIn

@@ -17,6 +17,7 @@ import FormComponent from '../components/FormComponent';
 export default function SignUp() {
     const [error, setError] = React.useState('');
     const navigate = useNavigate();
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
