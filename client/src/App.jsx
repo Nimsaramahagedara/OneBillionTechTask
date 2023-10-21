@@ -10,6 +10,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import { createContext, useContext, useState } from 'react';
 import ChangePassword from './pages/ChangePassword';
 import Spinner from './components/Spinner';
+import Profile from './pages/Profile';
 
 export const UserContext = createContext();
 
@@ -45,6 +46,7 @@ const handleChangeUser = (user)=>{
               <Route path='/home' element={<Home />} />
               <Route path='/reset' element={<ForgotPassword />} />
               <Route path='/passwordReset' element={<ChangePassword />} />
+              <Route path='/profile' element={<Profile />} />
             </Routes>
           </HashRouter>
           {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}

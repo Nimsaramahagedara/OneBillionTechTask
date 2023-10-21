@@ -84,12 +84,13 @@ export const loginUser = async (req, res) => {
 
 //GET USER
 export const getUser = async (req, res) => {
-    const { token } = req.body;
+    const { createdBy } = req.body;
+    console.log(createdBy);
     
     
     try {
-        const _id = getId(token);
-        const isExist = await UserModel.findById(_id);
+      //  const _id = getId(token);
+        const isExist = await UserModel.findById(createdBy);
 
         //CHECH IS ACCOUNT IS EXIST OR NOT
         if (!isExist) {

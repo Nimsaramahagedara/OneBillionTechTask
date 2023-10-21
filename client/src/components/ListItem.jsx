@@ -27,14 +27,16 @@ const ToDoItem = ({ value, cb }) => {
 
     const handleToggle = async(value) => {
         try {
-            console.log(checked);
-            console.log(value);
-            //const result = await authAxios.put(`/status/${value._id}`,{})
+            setChecked((prev)=> !prev);
+            const result = await authAxios.put(`todo/status/${value._id}`,{status: !value.status})
+            if(result){
+                alert('Updated');
+            }
         } catch (error) {
             console.log(error);
         }
         console.log(value);
-        setChecked((prev)=> !prev);
+        
     };
 
     return (

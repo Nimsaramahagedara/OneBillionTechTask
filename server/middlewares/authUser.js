@@ -11,7 +11,7 @@ export const authMiddleware = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.SECRET_KEY);
             //console.log(decoded);
             const foundUser = await UserModel.findById(decoded?.id);
-            req.body.createdBy = foundUser._id;
+            req.body.createdBy = decoded.id;
             next();
            }
         }catch(err){
