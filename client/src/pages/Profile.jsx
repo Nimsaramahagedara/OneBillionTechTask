@@ -37,7 +37,7 @@ const Profile = () => {
                 <TextField label='User ID'  value={user._id} disabled> </TextField>
                 <TextField label='User Name'  value={user.name} disabled> </TextField>
                 <TextField label='User Email'  value={user.email} disabled> </TextField>
-                <TextField label='Registered Date'  value={user.createdAt} disabled> </TextField>
+                <TextField label='Registered Date'  value={Date(user.createdAt)} disabled> </TextField>
                 </Box> : <Spinner/>
             }
             <Button variant='contained' onClick={()=> navigate('/home')}>Go Back</Button>

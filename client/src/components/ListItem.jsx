@@ -68,7 +68,7 @@ const ToDoItem = ({ value, cb }) => {
     }
 
     return (
-        <Badge badgeContent={isSameDay ? 'Today' : null} color="primary">
+        <Badge badgeContent={isSameDay ? 'Today' : null} color="success">
         <ListItem
             key={value._id}
             secondaryAction={
