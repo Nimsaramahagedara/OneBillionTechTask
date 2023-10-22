@@ -52,10 +52,10 @@ export const loginUser = async (req, res) => {
 
     try {
         //CHECK FOR VALIDATIONS
-        const error = isValid(email, password);
-        if (error) {
-            throw Error(error);
-        }
+        // const error = isValid(email, password);
+        // if (error) {
+        //     throw Error(error);
+        // }
 
         const isExist = await UserModel.findOne({ email: email });
 
