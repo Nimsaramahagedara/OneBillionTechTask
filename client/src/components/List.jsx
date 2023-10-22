@@ -9,6 +9,9 @@ export default function CheckboxList({ data, handleRefreshCb }) {
     const [itemData, setSortedData] = useState(data);
     const [isSorted, setSorted] = useState(false);
 
+    useEffect(()=>{
+        setSortedData(data)
+    },[data])
     const handleSort = () => {
         const sortedArray = [...data];
 
@@ -32,10 +35,11 @@ export default function CheckboxList({ data, handleRefreshCb }) {
         setSorted((prev) => !prev)
     }
 
+   
     return (
         <>
             <Box className='flex items-center'>
-                <Typography variant='subtitle1'>SortBy Date :</Typography>
+                <Typography variant='subtitle1'>Sort By Date and Time:</Typography>
                 <IconButton onClick={handleSort}>
                     {
                         isSorted ? <FilterListIcon /> : <SortIcon />
@@ -45,8 +49,6 @@ export default function CheckboxList({ data, handleRefreshCb }) {
             </Box>
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {itemData.map((value) => {
-                    // const labelId = value._id;
-
                     return (
                         <ToDoItem value={value} key={value._id} cb={handleRefreshCb} />
                     );

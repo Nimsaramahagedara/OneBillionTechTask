@@ -31,7 +31,7 @@ const SignIn = ()=> {
             const result = await authAxios.post('/login', credential);
             Cookies.set('token', result.data.token);
             const { name } = result.data.user
-            console.log(name);
+            // console.log(name);
             handleChangeUser(name);
 
             navigate('/home');
@@ -58,7 +58,6 @@ const SignIn = ()=> {
                     id="email"
                     label="Email Address"
                     name="email"
-                    autoComplete="email"
                     autoFocus
                 />
                 <TextField
@@ -69,7 +68,6 @@ const SignIn = ()=> {
                     label="Password"
                     type="password"
                     id="password"
-                    autoComplete="current-password"
                 />
                 <Button
                     type="submit"

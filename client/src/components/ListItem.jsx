@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Badge, Box, TextField, Typography } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import date from 'date-and-time';
+import {toast} from 'react-toastify';
 
 const ToDoItem = ({ value, cb }) => {
     const [checked, setChecked] = useState(value.status);
@@ -25,11 +26,12 @@ const ToDoItem = ({ value, cb }) => {
         try {
             const result = await authAxios.delete(`/todo/${value._id}`);
             if (result) {
-                alert('Item Deleted');
+                toast.warning(result.data.message)
                 cb();
             }
 
         } catch (error) {
+            toast.error('Error logged to the console');
             console.log(error);
         }
     }
@@ -49,10 +51,9 @@ const ToDoItem = ({ value, cb }) => {
                 alert('Updated');
             }
         } catch (error) {
+            toast.error('Error logged to the console');
             console.log(error);
         }
-        console.log(value);
-
     };
 
     const handleUpdate = async()=>{
@@ -60,9 +61,10 @@ const ToDoItem = ({ value, cb }) => {
             const result = await authAxios.put(`/todo/${value._id}`,{title:itemContent})
             if(result){
                 cb();
-                alert('Updated !');
+                toast.success(result.data.message)
             }
         } catch (error) {
+            toast.error('Error logged to the console');
             console.log(error);
         }
     }

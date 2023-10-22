@@ -7,7 +7,7 @@ export const isValid = (email, password)=>{
     }
      //EXAMPLE PWD : Nimsara123@
      if (!validator.isStrongPassword(password)) {
-        return 'A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required!'
+        return 'Minimum 8 characters password contains a Uppercase and lowercase letter and Special Character required!'
     }
     return 0;
 

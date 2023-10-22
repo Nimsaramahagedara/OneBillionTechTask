@@ -13,8 +13,13 @@ const Profile = () => {
 
     useEffect(() => {
         const getUserDetails = async () => {
-            const result = await authAxios.get('/user');
-            setUser(result.data);
+            try {
+                const result = await authAxios.get('/user');
+                setUser(result.data);
+            } catch (error) {
+                console.log(error);
+            }
+           
         }
 
         getUserDetails();

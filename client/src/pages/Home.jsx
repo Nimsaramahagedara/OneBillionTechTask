@@ -6,24 +6,35 @@ import CheckboxList from '../components/List';
 import authAxios from '../utils/authAxios';
 import NavBarComponent from '../components/NavBarComponent';
 import Spinner from '../components/Spinner';
-
+import {toast} from 'react-toastify'
 
 
 const Home = () => {
-  const { user } = useContext(UserContext);
-  const [list, setList] = useState();
+ // const { user } = useContext(UserContext);
+  const [list, setList] = useState(null)
   const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh((prev) => !prev);
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const addItem = async (item) => {
       try {
         const result = await authAxios.post('/todo', { title: item });
         if (result) {
-          alert(result.data.message);
+          toast.success(result.data.message)
+         // toast.success(result.data.message)
+          //alert();
           setList((prev) => [...prev, result.data.result])
+          handleRefresh();
+
         }
       } catch (error) {
+        toast.error(error);
         console.log(error);
       }
     }
@@ -31,21 +42,18 @@ const Home = () => {
     const item = data.get('item');
     addItem(item);
   }
-  const handleRefresh = () => {
-    setRefresh((prev) => !prev);
-  }
+
 
 
   useEffect(() => {
     const getAllItems = async () => {
       try {
         const result = await authAxios.get('/todo');
-        setList(result.data);
+        setList([...result.data]);
       } catch (error) {
-        alert(error.data.message)
+        console.log(error);
+        toast.error('Error logged to the console');
       }
-
-
     }
 
     getAllItems();
@@ -69,11 +77,11 @@ const Home = () => {
           }} >Add Task</Button>
 
         </form>
-       
+
         {
-          list ? (<CheckboxList data={list} handleRefreshCb={handleRefresh} />) : <Spinner/>
+        list ? <CheckboxList data={list} handleRefreshCb={handleRefresh} /> : <Spinner/>
         }
-        
+
       </FormComponent>
     </>
   )

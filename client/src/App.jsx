@@ -12,6 +12,8 @@ import ChangePassword from './pages/ChangePassword';
 import Spinner from './components/Spinner';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const UserContext = createContext();
 
@@ -39,6 +41,7 @@ const handleChangeUser = (user)=>{
       <ThemeProvider theme={redTheme}>
         {/* <Container component="main" maxWidth="xs"> */}
           <CssBaseline />
+          <ToastContainer/>
           {/* <Spinner/> */}
           <HashRouter>
             <Routes>
