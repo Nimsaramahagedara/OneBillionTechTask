@@ -1,12 +1,10 @@
-import validator from "validator";
 import jwt from "jsonwebtoken";
 import { isValid } from "../utils/validator.js";
-import TokenModel from "../models/tokenModel.js";
+import TokenModel from "../models/TokenModel.js";
 import crypto from 'crypto';
-import bcrypt from 'bcrypt';
 import { sendEmail } from "../utils/sendEmail.js";
+//import UserModel from "../models/UserModel.js";
 import UserModel from "../models/userModel.js";
-
 export const createToken = (id) => {
     const token = jwt.sign({ id }, process.env.SECRET_KEY, {
         expiresIn: '1d'
