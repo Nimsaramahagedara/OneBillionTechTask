@@ -1,6 +1,6 @@
 import './App.css'
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import Signin from './pages/signin';
+import Signin from './pages/Signin';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Container from '@mui/material/Container';

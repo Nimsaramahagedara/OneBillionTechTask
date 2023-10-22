@@ -48,7 +48,7 @@ const ToDoItem = ({ value, cb }) => {
             setChecked((prev) => !prev);
             const result = await authAxios.put(`todo/status/${value._id}`, { status: !value.status })
             if (result) {
-                alert('Updated');
+                toast.success('Updated!');
             }
         } catch (error) {
             toast.error('Error logged to the console');
