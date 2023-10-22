@@ -8,15 +8,18 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import authAxios from '../utils/authAxios';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, TextField, Typography } from '@mui/material';
+import { Badge, Box, TextField, Typography } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
+import date from 'date-and-time';
 
 const ToDoItem = ({ value, cb }) => {
     const [checked, setChecked] = useState(value.status);
     const [edit, setEdit] = useState(false);
     const [itemContent, setItemContent] = useState(value.title)
     const labelId = `checkbox-list-label-${value._id}`;
-    const date =new Date(value.createdAt).toUTCString();
+    const currentDate = new Date();
+    const itemDate =new Date(value.createdAt);
+    const isSameDay = date.isSameDay(currentDate,itemDate) ? 'Today' : ''
 
     const handleDelete = async (value) => {
         try {
@@ -38,6 +41,7 @@ const ToDoItem = ({ value, cb }) => {
     }
 
     const handleToggle = async (value) => {
+        
         try {
             setChecked((prev) => !prev);
             const result = await authAxios.put(`todo/status/${value._id}`, { status: !value.status })
@@ -64,6 +68,7 @@ const ToDoItem = ({ value, cb }) => {
     }
 
     return (
+        <Badge badgeContent={isSameDay ? 'Today' : null} color="primary">
         <ListItem
             key={value._id}
             secondaryAction={
@@ -98,11 +103,12 @@ const ToDoItem = ({ value, cb }) => {
                 ) : (
                     <Box>
                     <ListItemText id={labelId} primary={value.title}/>
-                    <Typography variant='caption'  mt={0}>{date}</Typography>
+                    <Typography variant='caption'  mt={0}>{itemDate.toUTCString()}</Typography>
                     </Box>
                     )
             }
         </ListItem>
+        </Badge>
     )
 }
 

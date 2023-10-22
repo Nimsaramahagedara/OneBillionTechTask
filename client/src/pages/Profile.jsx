@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import FormComponent from '../components/FormComponent'
 import authAxios from '../utils/authAxios';
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import NavBarComponent from '../components/NavBarComponent';
+import Spinner from '../components/Spinner';
+import { useNavigate } from 'react-router-dom';
+
 
 const Profile = () => {
     const [user, setUser] = useState('');
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getUserDetails = async () => {
@@ -19,18 +23,24 @@ const Profile = () => {
         <>
         <NavBarComponent />
         <FormComponent>
-            <Typography variant='h5'>User Profile</Typography>
+            <Typography variant='h6'>User Profile</Typography>
             <Avatar>
 
             </Avatar>
             {
-           user ?<>
-                <Typography>{user._id}</Typography>
-                <Typography>{user.name}</Typography>
-                <Typography>{user.email}</Typography>
-                <Typography>{user.createdAt}</Typography>
-                </> : <p>loading ....</p>
+           user ?<Box sx={{
+            display:'flex',
+            flexDirection:'column',
+            gap:'20px',
+            margin:'20px auto'
+           }}>
+                <TextField label='User ID'  value={user._id} disabled> </TextField>
+                <TextField label='User Name'  value={user.name} disabled> </TextField>
+                <TextField label='User Email'  value={user.email} disabled> </TextField>
+                <TextField label='Registered Date'  value={user.createdAt} disabled> </TextField>
+                </Box> : <Spinner/>
             }
+            <Button variant='contained' onClick={()=> navigate('/home')}>Go Back</Button>
         </FormComponent>
         </>
     )

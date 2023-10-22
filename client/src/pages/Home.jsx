@@ -5,6 +5,8 @@ import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
 import CheckboxList from '../components/List';
 import authAxios from '../utils/authAxios';
 import NavBarComponent from '../components/NavBarComponent';
+import Spinner from '../components/Spinner';
+
 
 
 const Home = () => {
@@ -69,7 +71,7 @@ const Home = () => {
         </form>
        
         {
-          list ? (<CheckboxList data={list} handleRefreshCb={handleRefresh} />) : <p>Loading...</p>
+          list ? (<CheckboxList data={list} handleRefreshCb={handleRefresh} />) : <Spinner/>
         }
         
       </FormComponent>
