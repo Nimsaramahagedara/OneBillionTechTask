@@ -11,7 +11,7 @@ const tokenSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-}, { timestamps: true, expires: 3600 });
+}, { timestamps: true, expires: 600000 }); //Expire in 10 minutes
 
 tokenSchema.pre("save", async function (next) {
     if (!this.isModified('token')) {
