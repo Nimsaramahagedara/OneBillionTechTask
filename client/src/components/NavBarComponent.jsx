@@ -81,7 +81,7 @@ export default function NavBarComponent() {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-              >
+              ><MenuItem onClick={()=> navigate('/home')}>Home</MenuItem>
                 <MenuItem onClick={()=> navigate('/profile')}>Profile</MenuItem>
                 <MenuItem onClick={handleLogOut}>Log out</MenuItem>
               </Menu>

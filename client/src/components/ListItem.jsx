@@ -7,50 +7,82 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import authAxios from '../utils/authAxios';
+import EditIcon from '@mui/icons-material/Edit';
+import { Box, TextField, Typography } from '@mui/material';
+import DoneIcon from '@mui/icons-material/Done';
 
 const ToDoItem = ({ value, cb }) => {
     const [checked, setChecked] = useState(value.status);
+    const [edit, setEdit] = useState(false);
+    const [itemContent, setItemContent] = useState(value.title)
     const labelId = `checkbox-list-label-${value._id}`;
+    const date =new Date(value.createdAt).toUTCString();
 
-    const handleDelete = async (value)=>{
+    const handleDelete = async (value) => {
         try {
-            const result =await authAxios.delete(`/todo/${value._id}`);
-            if(result){
+            const result = await authAxios.delete(`/todo/${value._id}`);
+            if (result) {
                 alert('Item Deleted');
                 cb();
             }
-            
+
         } catch (error) {
             console.log(error);
         }
     }
+    const toggleEdit =async ()=>{
+        if(edit){
+           await handleUpdate();
+        }
+        setEdit((prev)=> !prev);
+    }
 
-    const handleToggle = async(value) => {
+    const handleToggle = async (value) => {
         try {
-            setChecked((prev)=> !prev);
-            const result = await authAxios.put(`todo/status/${value._id}`,{status: !value.status})
-            if(result){
+            setChecked((prev) => !prev);
+            const result = await authAxios.put(`todo/status/${value._id}`, { status: !value.status })
+            if (result) {
                 alert('Updated');
             }
         } catch (error) {
             console.log(error);
         }
         console.log(value);
-        
+
     };
+
+    const handleUpdate = async()=>{
+        try {
+            const result = await authAxios.put(`/todo/${value._id}`,{title:itemContent})
+            if(result){
+                cb();
+                alert('Updated !');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <ListItem
             key={value._id}
             secondaryAction={
-                <IconButton edge="end" aria-label="comments" onClick={()=>handleDelete(value)}>
-                    <DeleteIcon />
-                </IconButton>
+                <>
+                    <IconButton onClick={toggleEdit}>
+                        {
+                            edit ? <DoneIcon/> :<EditIcon />
+                        }
+                        
+                    </IconButton>
+                    <IconButton edge="end"  onClick={() => handleDelete(value)}>
+                        <DeleteIcon />
+                    </IconButton>
+                </>
             }
-            disablePadding
+        
         >
-            <ListItemButton role={undefined} onClick={()=>handleToggle(value)} dense>
-                <ListItemIcon>
+            <ListItemButton role={undefined} onClick={() => handleToggle(value)} sx={{maxWidth:'5%'}} dense>
+                <ListItemIcon  >
                     <Checkbox
                         edge="start"
                         checked={checked}
@@ -59,8 +91,17 @@ const ToDoItem = ({ value, cb }) => {
                         inputProps={{ 'aria-labelledby': labelId }}
                     />
                 </ListItemIcon>
-                <ListItemText id={labelId} primary={value.title} />
             </ListItemButton>
+            {
+                edit ? (
+                    <TextField onChange={(e) => setItemContent(e.target.value)} value={itemContent} fullWidth></TextField>
+                ) : (
+                    <Box>
+                    <ListItemText id={labelId} primary={value.title}/>
+                    <Typography variant='caption'  mt={0}>{date}</Typography>
+                    </Box>
+                    )
+            }
         </ListItem>
     )
 }
