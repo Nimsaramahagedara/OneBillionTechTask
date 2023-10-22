@@ -89,14 +89,9 @@ export default function ChangePassword() {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                 >
-                    Sign In
+                    Change Password
                 </Button>
                 <Grid container>
-                    <Grid item xs>
-                        <Link href="#/reset" variant="body2">
-                            Change Password
-                        </Link>
-                    </Grid>
                     <Grid item>
                         <Link href="#/" variant="body2">
                             {"Remember the Password? Login"}
